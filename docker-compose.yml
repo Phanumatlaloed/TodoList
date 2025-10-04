@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16
+    container_name: todo_pg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tododb
+    ports:
+      - "5432:5432"
+    volumes:
+      - todo_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tododb"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./todo-api-express-ts
+    container_name: todo_api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:postgres@db:5432/tododb?schema=public
+    ports:
+      - "3000:3000"
+
+  web:
+    build: ./todo-frontend-vue3-ts
+    container_name: todo_web
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+
+volumes:
+  todo_pg_data:

@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "Todo List API Collection",
+    "_postman_id": "f47d56c2-1234-4d2a-9a6b-f9b7c6a12345",
+    "description": "Postman collection for testing the Todo RESTful API (Express + Prisma + PostgreSQL)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/health"
+      }
+    },
+    {
+      "name": "Get All Todos",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/todos"
+      }
+    },
+    {
+      "name": "Create Todo",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Write documentation\"\n}"
+        },
+        "url": "http://localhost:3000/api/todos"
+      }
+    },
+    {
+      "name": "Update Todo (Mark as Completed)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"completed\": true\n}"
+        },
+        "url": "http://localhost:3000/api/todos/1"
+      }
+    },
+    {
+      "name": "Delete Todo",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:3000/api/todos/1"
+      }
+    }
+  ]
+}

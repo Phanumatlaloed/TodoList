@@ -1,0 +1,71 @@
+{
+  "info": {
+    "name": "Todo API Collection",
+    "_postman_id": "2c1f6a32-aaaa-bbbb-cccc-e1c1f6a32aaa",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{BASE_URL}}/api/health"
+      }
+    },
+    {
+      "name": "Get Todos",
+      "request": {
+        "method": "GET",
+        "url": "{{BASE_URL}}/api/todos"
+      }
+    },
+    {
+      "name": "Create Todo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Write documentation\"\n}"
+        },
+        "url": "{{BASE_URL}}/api/todos"
+      }
+    },
+    {
+      "name": "Update Todo (toggle completed)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"completed\": true\n}"
+        },
+        "url": "{{BASE_URL}}/api/todos/1"
+      }
+    },
+    {
+      "name": "Delete Todo",
+      "request": {
+        "method": "DELETE",
+        "url": "{{BASE_URL}}/api/todos/1"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
