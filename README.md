@@ -1,58 +1,67 @@
-# todo-docker
-Todo List Application
+# Todo List Application (Fullstack with Docker)
 
-Open:
-- Web: http://localhost:8080
-- API: http://localhost:3000/api/health
+โครงการนี้เป็นการพัฒนาแอปพลิเคชันจัดการงาน (Todo List) ที่สามารถเพิ่ม ลบ และแก้ไขสถานะของงานได้  
+พัฒนาโดยใช้เทคโนโลยีทั้งส่วน Frontend และ Backend พร้อมรองรับการรันผ่าน Docker Compose
 
+---
 
-//เทคโนโลยีที่ใช้
-Frontend
+## การเปิดใช้งาน
 
-Vue.js 3 + TypeScript
+หลังจากรัน Docker สำเร็จ สามารถเข้าผ่าน URL ดังนี้
 
-Bootstrap 5 (CSS Framework) สำหรับการออกแบบให้สวยงามและ Responsive
+| ส่วน | URL | รายละเอียด |
+|------|-----|-------------|
+| Web (Frontend) | [http://localhost:8080](http://localhost:8080) | หน้าเว็บหลักของระบบ Todo List |
+| API Health | [http://localhost:3000/api/health](http://localhost:3000/api/health) | ตรวจสอบสถานะของ RESTful API |
+| API Todos | [http://localhost:3000/api/todos](http://localhost:3000/api/todos) | Endpoint สำหรับจัดการข้อมูล Todo |
 
-Axios สำหรับเชื่อมต่อกับ RESTful API
+---
 
-Backend
+## เทคโนโลยีที่ใช้
 
-Express.js (TypeScript) สำหรับสร้าง RESTful API
+### Frontend
+- Vue.js 3 + TypeScript  
+- Bootstrap 5 สำหรับการออกแบบให้สวยงามและรองรับทุกขนาดหน้าจอ (Responsive)  
+- Axios สำหรับเชื่อมต่อกับ RESTful API  
 
-Prisma ORM สำหรับเชื่อมต่อและจัดการฐานข้อมูล
+### Backend
+- Express.js (TypeScript) สำหรับสร้าง RESTful API  
+- Prisma ORM สำหรับจัดการและเชื่อมต่อฐานข้อมูล  
+- PostgreSQL เป็นระบบฐานข้อมูลหลัก  
+- Docker Compose สำหรับการรันระบบทั้งหมด (Database, API, Frontend)
 
-PostgreSQL เป็นระบบฐานข้อมูลหลัก
+---
 
-Docker Compose สำหรับการรันระบบทั้งหมด (Database, API, Frontend)
+## ฟังก์ชันหลักของระบบ
 
-//ฟังก์ชันหลักของระบบ
+- ผู้ใช้สามารถเพิ่มรายการงาน (Todo) ใหม่ได้  
+- ผู้ใช้สามารถลบรายการงานที่ไม่ต้องการได้  
+- ผู้ใช้สามารถทำเครื่องหมายว่างานเสร็จแล้วได้  
+- หน้าเว็บออกแบบให้ Responsive ทั้งบนคอมพิวเตอร์และมือถือ  
+- ข้อมูลถูกเก็บในฐานข้อมูล PostgreSQL ผ่าน API  
+- เมื่อรีเฟรชหน้าเว็บ รายการ Todo ยังคงอยู่ (โหลดจาก RESTful API Server)  
+- มีการทดสอบ API ด้วย Postman Collection
 
-ผู้ใช้สามารถเพิ่มรายการงาน (Todo) ใหม่ได้
+---
 
-ผู้ใช้สามารถลบรายการงานที่ไม่ต้องการได้
+## การสร้างและรัน Container
 
-ผู้ใช้สามารถทำเครื่องหมายว่างานนั้นเสร็จแล้วได้
+ใช้คำสั่งเดียวในการรันทุกส่วนของระบบ
 
-ระบบออกแบบให้แสดงผลได้ทั้งใน คอมพิวเตอร์และมือถือ (Responsive)
-
-ข้อมูลจะถูกเก็บไว้ในฐานข้อมูล PostgreSQL ผ่าน API
-
-เมื่อรีเฟรชหน้าเว็บ รายการ Todo ยังคงอยู่ เนื่องจากดึงข้อมูลจาก RESTful API Server
-
-มีการทดสอบ API ด้วย Postman Collection
-
-//สร้างและรัน Container
+```bash
 docker compose up --build -d
 
-//URL	
-Frontend	http://localhost:8080
-Backend API	http://localhost:3000/api/todos
-Health	http://localhost:3000/api/health
+
 
 //การทดสอบด้วย Postman
 มีไฟล์ TodoListAPI.postman_collection.json สำหรับนำเข้าใน Postman
 ภายในประกอบด้วย:
+
 GET /api/todos – แสดงรายการทั้งหมด
+
 POST /api/todos – เพิ่มรายการใหม่
+
 PUT /api/todos/:id – แก้ไขสถานะงาน
+
 DELETE /api/todos/:id – ลบงาน
+
